@@ -1,4 +1,5 @@
 .container {
+  display: none !important;
   width: 607px;
   height: 829px;
   margin: auto;

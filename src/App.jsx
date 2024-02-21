@@ -5,7 +5,12 @@ function App() {
 
   return (
     <>
-      <WeatherrApp />
+      <div className="coming-soon">
+        <h1>
+          Will be ready Soon!
+        </h1>
+      </div>
+      {/* <WeatherrApp /> */}
     </>
   )
 }
