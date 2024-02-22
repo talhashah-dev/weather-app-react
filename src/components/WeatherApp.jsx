@@ -10,33 +10,35 @@ import wind_icon from "../assets/icons/wind.svg";
 import humidity_icon from "../assets/icons/humidity.png";
 import search_icon from "../assets/icons/search.png";
 
-function WeatherrApp() {
+function WeatherApp() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
   
   const search = async () => {
     const cityInput = document.getElementsByClassName("cityInput");
     if(cityInput[0].value === "") 
     {
-      alert("Please enter a valid city name!")
+      alert("Please enter a city name!")
       return 0;
     }
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput[0].value}&units=metric&appid=${api_key}`
     let response = await fetch(url);
     let data = await response.json()
 
-    const humidity = document.getElementsByClassName("humidity-percentage");
-    const wind_speed = document.getElementsByClassName("wind-speed");
-    const temprature = document.getElementsByClassName("weather-temp");
-    const location = document.getElementsByClassName("weather-location");
-    const description = document.getElementsByClassName("description");
-
-    humidity[0].innerHTML = data.main.humidity;
-    wind_speed[0].innerHTML = data.wind.speed + " Km/h";
-    temprature[0].innerHTML = data.main.temp + " °C";
-    location[0].innerHTML = data.name;
-    description[0].innerHTML = data.weather[0].description;
-
-
+    if(data.cod === "404"){
+      alert("City Not Found!")
+    } else {
+      const humidity = document.getElementsByClassName("humidity-percentage");
+      const wind_speed = document.getElementsByClassName("wind-speed");
+      const temprature = document.getElementsByClassName("weather-temp");
+      const location = document.getElementsByClassName("weather-location");
+      const description = document.getElementsByClassName("description");
+  
+      humidity[0].innerHTML = data.main.humidity;
+      wind_speed[0].innerHTML = data.wind.speed + " Km/h";
+      temprature[0].innerHTML = data.main.temp + " °C";
+      location[0].innerHTML = data.name;
+      description[0].innerHTML = data.weather[0].description;  
+    }
   }
 
   return (
@@ -78,4 +80,4 @@ function WeatherrApp() {
   );
 }
 
-export default WeatherrApp;
+export default WeatherApp;
