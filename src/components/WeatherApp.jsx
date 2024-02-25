@@ -2,14 +2,6 @@ import React from "react";
 import Swal from "sweetalert2";
 import "../assets/css/styles.css";
 
-import clear_icon from "../assets/icons/clear.svg";
-import cloud_icon from "../assets/icons/cloud.svg";
-import partly_cloudy_icon from "../assets/icons/partly-cloudy.svg";
-import rain_icon from "../assets/icons/rainy.svg";
-import snow_icon from "../assets/icons/snow.svg";
-import wind_icon from "../assets/icons/wind.svg";
-import humidity_icon from "../assets/icons/humidity.png";
-import search_icon from "../assets/icons/search.png";
 
 function WeatherApp() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
@@ -42,7 +34,7 @@ function WeatherApp() {
       const location = document.getElementsByClassName("weather-location");
       const description = document.getElementsByClassName("description");
 
-      humidity[0].innerHTML = data.main.humidity;
+      humidity[0].innerHTML = data.main.humidity + "%";
       wind_speed[0].innerHTML = data.wind.speed + " Km/h";
       temprature[0].innerHTML = data.main.temp + " °C";
       location[0].innerHTML = data.name;
@@ -52,42 +44,26 @@ function WeatherApp() {
 
   return (
     <div className="container">
-      <div className="top-bar">
-        <input type="text" className="cityInput" placeholder="Search City" />
-        <img
-          src={search_icon}
-          alt=""
-          className="search-icon"
-          onClick={() => {
-            search();
-          }}
-        />
+      <div className="search-container">
+        <input type="text" className="search-input" placeholder="Type Location Here" />
+        <button type="button" className="search-btn">Search</button>
       </div>
-
-      <div className="weather-icon">
-        <img src={cloud_icon} alt="" width="350px" />
-      </div>
-
-      <div className="weather-temp">24°C</div>
-      <div className="weather-location">London</div>
-
-      <div className="data-container">
-        <div className="element">
-          <div className="data">
-            <div className="text">Humidity</div>
-            <div className="humidity-percentage"></div>
-          </div>
+      <div className="weather-info">
+        <img src="" alt="" className="weather-icon" />
+        <div className="temp-box">
+          <p className="temp">23</p>
+          <p className="temp-hi-low">19/26</p>
         </div>
-        <div className="element">
-          <div className="data">
-            <div className="text">Wind Speed</div>
-            <div className="wind-speed"></div>
-          </div>
+        <div className="extra-info">
+           <p className="wind-speed">12 km/h</p>  
+           <p className="pressure">79%</p>  
+           <p className="humidity">30%</p>  
         </div>
-        <div className="element">
-          <div className="data">
-            <div className="text">Description</div>
-            <div className="description"></div>
+        <div className="weekly-forecast">
+          <div className="forecast-box">
+            <img src="" alt="" className="forecast-icon" />
+            <p className="temp-hi-low">19/26</p>
+            <p className="weekday">Mon</p>
           </div>
         </div>
       </div>
