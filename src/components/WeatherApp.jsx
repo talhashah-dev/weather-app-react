@@ -2,13 +2,12 @@ import React from "react";
 import Swal from "sweetalert2";
 import "../assets/css/styles.css";
 
+
 function WeatherApp() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
 
   const search = async () => {
     const cityInput = document.getElementsByClassName("city-input");
-    
-    // checking if input is empty
     if (cityInput[0].value === "") {
       Swal.fire({
         title: "Oops...",
@@ -36,6 +35,7 @@ function WeatherApp() {
         const temprature = document.getElementsByClassName("temp");
         const pressure = document.getElementsByClassName("pressure");
         const temp_hi_low = document.getElementsByClassName("temp-hi-low");
+        const temp_hi_low_text = document.getElementsByClassName("temp-hi-low-text");
         const location = document.getElementsByClassName("weather-location");
         const description = document.getElementsByClassName("description");
         const time_zone = document.getElementsByClassName("time-zone");
@@ -45,21 +45,21 @@ function WeatherApp() {
         const currentDate = new Date(timestamp);
 
         // passing API data to DOM elements
-        humidity[0].innerHTML = data.main.humidity + "%";
-        wind_speed[0].innerHTML = data.wind.speed + " Km/h";
-        temprature[0].innerHTML = data.main.temp + " °C";
-        temp_hi_low[0].innerHTML =
-          data.main.temp_min + "/" + data.main.temp_max;
-        pressure[0].innerHTML = data.main.pressure;
-        location[0].innerHTML = data.name;
+        humidity[0].innerHTML = "Humidity: " + data.main.humidity + "%";
+        wind_speed[0].innerHTML = "Speed: " + data.wind.speed + " Km/h";
+        temprature[0].innerHTML = Math.floor(data.main.temp , "°");
+        temp_hi_low_text[0].innerHTML = "Low / High"
+        temp_hi_low[0].innerHTML = data.main.temp_min + "/" + data.main.temp_max;
+        // pressure[0].innerHTML = data.main.pressure;
+        // location[0].innerHTML = data.name;
         description[0].innerHTML = data.weather[0].description;
-        time_zone[0].innerHTML = currentDate.toLocaleTimeString();
-        sun_sit[0].innerHTML = new Date(
-          data.sys.sunset * 1000
-        ).toLocaleTimeString();
-        sun_rise[0].innerHTML = new Date(
-          data.sys.sunrise * 1000
-        ).toLocaleTimeString();
+        // time_zone[0].innerHTML = currentDate.toLocaleTimeString();
+        // sun_sit[0].innerHTML = new Date(
+        //   data.sys.sunset * 1000
+        // ).toLocaleTimeString();
+        // sun_rise[0].innerHTML = new Date(
+        //   data.sys.sunrise * 1000
+        // ).toLocaleTimeString();
       }
     } catch (error) {
       Swal.fire({
@@ -73,40 +73,46 @@ function WeatherApp() {
   return (
     <div className="container">
       <div className="search-container">
-        <input
+          <input
           type="text"
           className="city-input"
-          placeholder="Type Location Here"
-        />
+          placeholder="London"
+          autoFocus
+        />  
         <button type="button" className="search-btn" onClick={search}>
           Search
         </button>
       </div>
       <div className="weather-info">
-        <div>
-          <img src="" alt="" className="weather-icon" />
-          <p className="description"></p>
+        <div className="weather-icon">
+          <img src="https://icons.veryicon.com/png/o/miscellaneous/test-6/weather-91.png" alt=""/>
+          <p className="description" style={{textTransform:"capitalize"}}></p>
+        </div>
+        {/* <div>
           <p className="weather-location"></p>
           <p className="time-zone"></p>
           <p className="sun-sit"></p>
           <p className="sun-rise"></p>
-        </div>
+        </div> */}
         <div className="temp-box">
           <p className="temp"></p>
+          <span style={{textAlign:"center"}}>
+          <p className="temp-hi-low-text"></p>
           <p className="temp-hi-low"></p>
+          </span>
         </div>
         <div className="extra-info">
           <p className="wind-speed"></p>
           <p className="pressure"></p>
           <p className="humidity"></p>
         </div>
-        <div className="weekly-forecast">
+        {/* <div className="weekly-forecast">
           <div className="forecast-box">
             <img src="" alt="" className="forecast-icon" />
             <p className="temp-hi-low"></p>
             <p className="weekday"></p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
