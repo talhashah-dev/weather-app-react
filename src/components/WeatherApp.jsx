@@ -50,16 +50,8 @@ function WeatherApp() {
         temprature[0].innerHTML = Math.floor(data.main.temp , "°");
         temp_hi_low_text[0].innerHTML = "Low / High"
         temp_hi_low[0].innerHTML = data.main.temp_min + "/" + data.main.temp_max;
-        // pressure[0].innerHTML = data.main.pressure;
-        // location[0].innerHTML = data.name;
         description[0].innerHTML = data.weather[0].description;
-        // time_zone[0].innerHTML = currentDate.toLocaleTimeString();
-        // sun_sit[0].innerHTML = new Date(
-        //   data.sys.sunset * 1000
-        // ).toLocaleTimeString();
-        // sun_rise[0].innerHTML = new Date(
-        //   data.sys.sunrise * 1000
-        // ).toLocaleTimeString();
+      
       }
     } catch (error) {
       Swal.fire({
