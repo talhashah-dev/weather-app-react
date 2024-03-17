@@ -1,5 +1,4 @@
 import React from 'react'
-import search_icon from "../assets/images/search-icon.png"
 import "../App.css"
 
 
@@ -19,7 +18,6 @@ function Search() {
             <input type="text" className="searchInput" placeholder="Search your City" onClick={show} />
             <p className="print"></p>
             </span>
-            {/* <button className="currentLocation">Use your currunt location</button> */}
         </div>
     </>
   )

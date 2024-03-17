@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "../App.css";
 import Search from "./Search";
@@ -6,11 +5,6 @@ import Search from "./Search";
 
 function WeatherApp() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
-  // const [data, setData] = useState('');
-  
-  // const parentToChild = () => {
-  //   setData("This is data from Parent Component to the Child Component.");
-  // }
 
   const search = async () => {
     const cityInput = document.getElementsByClassName("city-input");
