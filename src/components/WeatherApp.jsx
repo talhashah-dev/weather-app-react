@@ -34,6 +34,12 @@ function WeatherApp() {
 
         // Passing API data to DOM elements
         humidity[0].innerHTML = "Humidity: " + data.main.humidity + "%";
+        wind_speed[0].innerHTML = "Speed: " + data.wind.speed + " Km/h";
+        temprature[0].innerHTML = Math.floor(data.main.temp , "°");
+        temp_hi_low_text[0].innerHTML = "Low / High"
+        temp_hi_low[0].innerHTML = data.main.temp_min + "/" + data.main.temp_max;
+        description[0].innerHTML = data.weather[0].description;
+      
       }
     } catch (error) {
       Swal.fire({
