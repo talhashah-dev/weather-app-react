@@ -1,9 +1,6 @@
-import Swal from "sweetalert2";
-import "../App.css";
-import Search from "./Search";
+import React from "react";
 
-
-function WeatherApp() {
+function Weather() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
 
   const search = async () => {
@@ -16,6 +13,7 @@ function WeatherApp() {
       });
       return 0;
     }
+
 
     // used try-catch for error handling
     try {
@@ -43,12 +41,25 @@ function WeatherApp() {
       });
     }
   };
-
+  
   return (
-    <div className="container">
-      <Search />
+    <div className="weather">
+      <div className="tempBox">
+        <p className="location">London</p>
+        <div>
+          <p className="temp">26</p>
+          <div className="tempIcon">ICON</div>
+        </div>
+        <p className="feelsLike">Feels like 26</p>
+      </div>
+      <div className="extraInfoBox">
+        <h3 className="description">Clear</h3>
+        <p className="pressure">Precip: 0%</p>
+        <p className="humidity">Humidity: 28%</p>
+        <p className="wind">Wind: 31 km/h</p>
+      </div>
     </div>
   );
 }
 
-export default WeatherApp;
+export default Weather;
