@@ -1,64 +1,39 @@
 import React from "react";
-import Swal from "sweetalert2";
 
 function Weather() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
+  const cityInput = document.querySelector("searchInp");
+
+  const handleKey = (event) => {
+    if(event.key === "Enter"){
+      search();
+    }
+  }
 
   const search = async () => {
-    const cityInput = document.getElementsByClassName("city-input");
-    if (cityInput[0].value === "") {
-      Swal.fire({
-        title: "Oops...",
-        text: "You need to enter a City name",
-        icon: "error",
-      });
-      return 0;
-    }
-
-
-    // used try-catch for error handling
+    console.log("Enter key pressed...")
+    console.log(cityInput)
+    // try-catch method used for API call and error handling
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput[0].value}&units=metric&appid=${api_key}`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${api_key}`;
       let response = await fetch(url);
       let data = await response.json();
-      if (data.cod === "404") {
-        Swal.fire({
-          title: "Hmm...",
-          text: "Are you sure City name is Correct!",
-          icon: "warning",
-        });
-      } else {
-        // Getting elements from dom
-        const humidity = document.getElementsByClassName("humidity");
-
-        // Passing API data to DOM elements
-        humidity[0].innerHTML = "Humidity: " + data.main.humidity + "%";
-      }
+      console.log("result", data)
     } catch (error) {
-      Swal.fire({
-        title: "Oh oh",
-        text: "You are Offline!",
-        icon: "warning",
-      });
+      console.log("error", error)
     }
   };
-  
+
   return (
     <div className="weather">
-      <div className="tempBox">
-        <p className="location">London</p>
-        <div>
-          <p className="temp">26</p>
-          <div className="tempIcon">ICON</div>
-        </div>
-        <p className="feelsLike">Feels like 26</p>
-      </div>
-      <div className="extraInfoBox">
-        <h3 className="description">Clear</h3>
-        <p className="pressure">Precip: 0%</p>
-        <p className="humidity">Humidity: 28%</p>
-        <p className="wind">Wind: 31 km/h</p>
-      </div>
+      <input type="text" className="searchInp" placeholder="Search your City" onKeyPress={handleKey} />
+      <button onClick={search}>Search</button>
+      <p className="location">London</p>
+      <p className="temp">26</p>
+      <p className="feelsLike">Feels like 26</p>
+      <p className="description">Clear</p>
+      <p className="humidity">Humidity 28%</p>
+      <p className="wind">Wind 31km/h</p>
     </div>
   );
 }
