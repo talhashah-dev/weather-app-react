@@ -4,3 +4,44 @@
   box-sizing: border-box;
 }
 
+
+
+/* Main App Container Styling Start */
+
+.App {
+  padding: 10px;
+}
+/* Main App Container Styling End */
+
+
+
+/* Header Stylings Start */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.credit {
+  display: flex;
+  gap: 10px;
+}
+
+.credit a {
+  color: #000;
+  text-decoration: none;
+}
+
+.credit a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+
+/* Header Stylings End */
+
