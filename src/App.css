@@ -41,7 +41,27 @@
   color: #000;
   text-decoration: underline;
 }
-
-
 /* Header Stylings End */
+
+
+/* Search Stylings Start */
+
+  .search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .searchInp {
+    width: 80%;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: 1px solid gray;
+    font-size: 18px;
+    outline: none;
+  }
+
+/* Search Stylings End */
+
 

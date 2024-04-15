@@ -4,13 +4,9 @@ import "../App.css"
 
 function Search() {
   return (
-    <>
-        <div className="searchBox">
-            <span>
-            <input type="text" className="searchInput" placeholder="Search your City" />
-            </span>
-        </div>
-    </>
+    <div className="search">
+      <input type="text" className="searchInp" placeholder="Search your City" />
+    </div>
   )
 }
 
