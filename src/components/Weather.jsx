@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Weather() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
-  const cityInput = document.querySelector("searchInp");
+  const [inpValue, setInpValue] = useState(null);
 
-  const handleKey = (event) => {
-    if(event.key === "Enter"){
-      search();
+  const handleKey = async (event) => {
+    if (event.key === "Enter") {
+      if (inpValue.trim() !== "") {
+        try {
+          let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue}&units=metric&appid=${api_key}`;
+          let response = await fetch(url);
+          let data = await response.json();
+          console.log("result", data); // Log the fetched data
+
+          // Optionally handle the fetched data further here
+        } catch (error) {
+          console.log("error", error);
+        }
+      } else {
+        console.log("Enter a city name please!");
+      }
     }
   }
 
   const search = async () => {
     console.log("Enter key pressed...")
-    console.log(cityInput)
     // try-catch method used for API call and error handling
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&units=metric&appid=${api_key}`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue}&units=metric&appid=${api_key}`;
       let response = await fetch(url);
       let data = await response.json();
       console.log("result", data)
@@ -26,8 +38,9 @@ function Weather() {
 
   return (
     <div className="weather">
-      <input type="text" className="searchInp" placeholder="Search your City" onKeyPress={handleKey} />
-      <button onClick={search}>Search</button>
+      <div className="search">
+      <input type="text" className="searchInp" placeholder="Search your City" onKeyDown={handleKey} onChange={(e) => setInpValue(e.target.value)} />
+      </div>
       <p className="location">London</p>
       <p className="temp">26</p>
       <p className="feelsLike">Feels like 26</p>
