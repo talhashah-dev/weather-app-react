@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from "sweetalert2";
 
 function Weather() {
   const api_key = "210eeabe1cac851c368047662c4815fd";
