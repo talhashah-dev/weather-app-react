@@ -144,10 +144,20 @@
   gap: 5px;
 }
 
+.tempContainer .tempBox img {
+  width: 22px;  
+}
+
+
+
 /* Utilities */
 .row {
   display: flex;
   gap: 15px;
+}
+
+.row img {
+  width: 20px;
 }
 
 .bold{
