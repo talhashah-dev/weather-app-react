@@ -11,7 +11,10 @@ function Weather() {
       if (inpValue !== "") {
         console.log("working...", inpValue);
         try {
-          let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue.replace(/\s/g,"")}&units=metric&appid=${API_KEY}`;
+          let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue.replace(
+            /\s/g,
+            ""
+          )}&units=metric&appid=${API_KEY}`;
           let response = await fetch(url);
           let data = await response.json();
           setWeatherData(data);
@@ -25,22 +28,57 @@ function Weather() {
   };
 
   return (
-    <div className="weather">
-      <div className="search">
+    <div className="mainWrapper">
+      <div className="searchContainer">
         <input
           type="text"
           className="searchInp"
-          placeholder="Search your City"
+          placeholder="search your location..."
           onKeyDown={handleKey}
           onChange={(e) => setInpValue(e.target.value)}
         />
       </div>
-      <p className="location">{weatherData}</p>
-      <p className="temp">26</p>
-      <p className="feelsLike">Feels like 26</p>
-      <p className="description">Clear</p>
-      <p className="humidity">Humidity 28%</p>
-      <p className="wind">Wind 31km/h</p>
+
+      <div className="mainContainer">
+        <div className="header">
+          <p>Current Weather</p>
+          <button>Change Unit</button>
+        </div>
+
+        <div className="currentWeather">
+          <div className="basicInfo">
+            <p className="location">Karachi, PK</p>
+            <div className="iconBox">
+              <img
+                className="icon"
+                width={"100px"}
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s"
+                alt="Weather Icon"
+              />
+              <p className="temp">26</p>
+            </div>
+            <p className="description">Clear</p>
+          </div>
+
+          <div className="extraInfo">
+            <p className="feelsLike">Feels like 26</p>
+            <div className="tempContainer">
+              <div className="tempBox">
+                <img width={"20px"} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s" alt="" />
+                <p className="max_temp">26</p>
+              </div>
+              <div className="tempBox">
+                <img width={"20px"} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s" alt="" />
+                <p className="max_temp">26</p>
+              </div>
+            </div>
+
+            <p className="humidity row"><img width={"20px"} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s" alt="" /> Humidity <p>28%</p></p>
+            <p className="wind row"><img width={"20px"} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s" alt="" /> Wind <p>28kmh</p></p>
+            <p className="pressure row"><img width={"20px"} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkPC6jNO4CP_14rB_W8VmlfpvF0uCuG2fU9z7geagHg&s" alt="" /> Pressure <p>28%</p></p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

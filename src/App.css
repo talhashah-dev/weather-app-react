@@ -7,12 +7,10 @@
 
 
 /* Main App Container Styling Start */
-
 .App {
   padding: 10px;
 }
 /* Main App Container Styling End */
-
 
 
 /* Header Stylings Start */
@@ -44,18 +42,31 @@
 /* Header Stylings End */
 
 
-/* Search Stylings Start */
+/* Main container stylings start */
 
-  .search {
+.mainWrapper{
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Main container stylings end */
+
+
+/* Search Stylings Start */ 
+
+  .searchContainer {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 20px;
   }
 
   .searchInp {
-    width: 80%;
-    padding: 10px 15px;
+    width: 60%;
+    padding: 10px 10px;
     border-radius: 25px;
     border: 1px solid gray;
     font-size: 18px;
@@ -64,4 +75,82 @@
 
 /* Search Stylings End */
 
+
+
+/* Main Container Stylings Start */
+
+.mainContainer{
+  width: 60%;
+  background-color: gray;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+
+.currentWeather {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Main Container Stylings End */
+
+
+/* Cards */
+.basicInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.basicInfo .location {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.basicInfo .iconBox {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.basicInfo .temp {
+  font-size: 100px;
+}
+
+
+.basicInfo .description {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.extraInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.extraInfo .tempContainer{
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.tempContainer .tempBox {
+  display: flex;
+  gap: 5px;
+}
+
+/* Utilities */
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+.bold{
+  font-weight: 900;
+}
 
