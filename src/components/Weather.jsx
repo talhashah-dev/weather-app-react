@@ -9,9 +9,9 @@ function Weather() {
   const handleKey = async (event) => {
     if (event.key === "Enter") {
       if (inpValue !== "") {
-        console.log("working...");
+        console.log("working...", inpValue);
         try {
-          let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue}&units=metric&appid=${API_KEY}`;
+          let url = `https://api.openweathermap.org/data/2.5/weather?q=${inpValue.replace(/\s/g,"")}&units=metric&appid=${API_KEY}`;
           let response = await fetch(url);
           let data = await response.json();
           setWeatherData(data);
@@ -23,7 +23,7 @@ function Weather() {
       }
     }
   };
-  
+
   return (
     <div className="weather">
       <div className="search">
