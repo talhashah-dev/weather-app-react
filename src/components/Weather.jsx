@@ -13,19 +13,20 @@ import Rain from "../weather_icons/rain.png";
 import Snow from "../weather_icons/snow.png";
 
 function Weather() {
-  const API_KEY = "210eeabe1cac851c368047662c4815fd";
   const [inpValue, setInpValue] = useState("");
-  const [defaultData, setDefaultData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const api = {
+    key: "210eeabe1cac851c368047662c4815fd",
+    url: "https://api.openweathermap.org/data/2.5/weather?"
+  }
 
   const defaultCall = async () => {
     setIsLoading(true);
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=moscow&units=metric&appid=${API_KEY}`;
-      let response = await fetch(url);
+      let response = await fetch(`${api.url}appid=${api.key}&q=karachi&units=metric`);
       let data = await response.json();
-      // console.log(data);
-      setDefaultData(data);
+      setWeatherData(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -36,6 +37,24 @@ function Weather() {
   useEffect(() => {
     defaultCall();
   }, []);
+
+  // Function for fetching data from API on key press
+  const handleKey = async (event) => {
+    if (event.key === "Enter") {
+      if (inpValue !== "") {
+        console.log("working...", inpValue);
+        try {
+          let response = await fetch(`${api.url}appid=${api.key}&q=${inpValue}&units=metric`)
+          let data = await response.json();
+          setWeatherData(data);
+        } catch (error) {
+          console.log("error", error);
+        }
+      } else {
+        console.log("Enter a city name please!");
+      }
+    }
+  };
 
   return (
     <>
@@ -53,6 +72,7 @@ function Weather() {
               type="text"
               className="searchInp"
               placeholder="search your location..."
+              onKeyDown={handleKey}
               onChange={(e) => setInpValue(e.target.value)}
             />
           </div>
@@ -64,54 +84,54 @@ function Weather() {
             </div>
 
             <div className="currentWeather">
-              {defaultData && (
+              {weatherData && (
                 <div className="basicInfo">
-                  <p className="location">{`${defaultData.name}, ${defaultData.sys.country}`}</p>
+                  <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
                   <div className="iconBox">
                     <img
                       className="icon"
                       width={"100px"}
-                      src={Rain}
+                      src={Clear}
                       alt="Weather Icon"
                     />
                     <p className="temp">{`${Math.floor(
-                      defaultData.main.temp
+                      weatherData.main.temp
                     )}°`}</p>
                   </div>
-                  <p className="description">{`${defaultData.weather[0].description}`}</p>
+                  <p className="description">{`${weatherData.weather[0].description}`}</p>
                 </div>
               )}
 
-              {defaultData && (
+              {weatherData && (
                 <div className="extraInfo">
                   <p className="feelsLike">{`Feels like ${Math.floor(
-                    defaultData.main.feels_like
+                    weatherData.main.feels_like
                   )}°`}</p>
                   <div className="tempContainer">
                     <div className="tempBox">
                       <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                      <p className="max_temp">{`${defaultData.main.temp_max}°`}</p>
+                      <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
                     </div>
                     <div className="tempBox">
                       <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                      <p className="min_temp">{`${defaultData.main.temp_min}°`}</p>
+                      <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
                     </div>
                   </div>
 
                   <span className="row">
                     <img src={Humidity_Icon} alt="" />
                     <p className="humidity">Humidity</p>
-                    <p>{`${defaultData.main.humidity}%`}</p>
+                    <p>{`${weatherData.main.humidity}%`}</p>
                   </span>
                   <span className="row">
                     <img src={Wind_Icon} alt="" />
                     <p className="wind"> Wind</p>
-                    <p>{`${defaultData.wind.speed}km/h`}</p>
+                    <p>{`${weatherData.wind.speed}km/h`}</p>
                   </span>
                   <span className="row">
                     <img src={Pressure_Icon} alt="" />
                     <p className="pressure">Pressure</p>
-                    <p>{`${defaultData.main.pressure}%`}</p>
+                    <p>{`${weatherData.main.pressure}%`}</p>
                   </span>
                 </div>
               )}
