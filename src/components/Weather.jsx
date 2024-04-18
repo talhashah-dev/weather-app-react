@@ -16,19 +16,91 @@ function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
     key: "210eeabe1cac851c368047662c4815fd",
-    url: "https://api.openweathermap.org/data/2.5/weather?"
-  }
+    url: "https://api.openweathermap.org/data/2.5/weather?",
+  };
 
+  // Icon change function
+  /* eslint-disable no-unreachable */
+  const setIcons = (weatherData) => {
+    switch (weatherData) {
+      case "clear sky":
+        return icons[0];
+        break;
+
+      case "few clouds":
+        return icons[2];
+        break;
+
+      case "scattered clouds":
+        return icons[2];
+        break;
+
+      case "drizzle":
+        return icons[2];
+        break;
+
+      case "overcast clouds":
+        return icons[2];
+        break;
+
+      case "broken clouds":
+        return icons[2];
+        break;
+
+      case "shower rain":
+        return icons[5];
+        break;
+
+      case "light rain":
+        return icons[5];
+        break;
+
+      case "moderate rain":
+        return icons[5];
+        break;
+
+      case "rain":
+        return icons[5];
+        break;
+
+      case "thunderstorm":
+        return icons[3];
+        break;
+
+      case "snow":
+        return icons[6];
+        break;
+
+      case "light snow":
+        return icons[6];
+        break;
+
+      case "haze":
+        return icons[4];
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  /* eslint-enable no-unreachable */
+
+  // default API call function
   const defaultCall = async () => {
     setIsLoading(true);
     try {
-      let response = await fetch(`${api.url}appid=${api.key}&q=karachi&units=metric`);
+      let response = await fetch(
+        `${api.url}appid=${api.key}&q=karachi&units=metric`
+      );
       let data = await response.json();
       setWeatherData(data);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -36,22 +108,30 @@ function Weather() {
 
   useEffect(() => {
     defaultCall();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Function for fetching data from API on key press
+  // API call function on key press
   const handleKey = async (event) => {
     if (event.key === "Enter") {
       if (inpValue !== "") {
-        console.log("working...", inpValue);
         try {
-          let response = await fetch(`${api.url}appid=${api.key}&q=${inpValue}&units=metric`)
+          let response = await fetch(
+            `${api.url}appid=${api.key}&q=${inpValue}&units=metric`
+          );
           let data = await response.json();
-          setWeatherData(data);
+          if (data.cod === "404") {
+            setError("City Not Found!");
+            return
+          }else {
+            setWeatherData(data);
+          }
+
         } catch (error) {
-          console.log("error", error);
+          setError(error.message);
         }
       } else {
-        console.log("Enter a city name please!");
+        setError("Please enter a City name!");
       }
     }
   };
@@ -77,10 +157,17 @@ function Weather() {
             />
           </div>
 
+          {error && (
+            <div className="error">
+              <p onClick={() => setError(null)}>x</p>
+              <p>{error}</p>
+            </div>
+          )}
+
           <div className="mainContainer">
             <div className="header">
               <p>Current Weather</p>
-              <button>Change Unit</button>
+              <button onClick={() => handleKey()}>Change Unit</button>
             </div>
 
             <div className="currentWeather">
@@ -91,7 +178,7 @@ function Weather() {
                     <img
                       className="icon"
                       width={"100px"}
-                      src={Clear}
+                      src={setIcons(weatherData.weather[0].description)}
                       alt="Weather Icon"
                     />
                     <p className="temp">{`${Math.floor(

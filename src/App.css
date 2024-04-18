@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
 /* Main App Container Styling Start */
 .App {
   padding: 10px;
@@ -120,6 +118,7 @@
 }
 
 .basicInfo .location {
+  text-align: center;
   font-size: 22px;
   font-weight: 900;
 }
@@ -139,6 +138,7 @@
   text-transform: capitalize;
   font-size: 22px;
   font-weight: 900;
+  text-align: center;
 }
 
 .extraInfo{
@@ -179,3 +179,17 @@
   font-weight: 900;
 }
 
+.error{
+  width: 30%;
+  height: 50px;
+  background-color: rgb(226, 66, 66);
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.error p:first-child {
+  cursor: pointer;
+  text-align: right;
+}
