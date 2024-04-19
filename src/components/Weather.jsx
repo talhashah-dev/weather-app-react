@@ -15,12 +15,14 @@ import Snow from "../weather_icons/snow.png";
 function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
     key: "210eeabe1cac851c368047662c4815fd",
     url: "https://api.openweathermap.org/data/2.5/weather?",
+    forecast_url: "https://api.openweathermap.org/data/2.5/forecast?",
   };
 
   // Icon change function
@@ -90,6 +92,18 @@ function Weather() {
 
   /* eslint-enable no-unreachable */
 
+  const forecast = async () => {
+    try {
+      const forecast_response = await fetch(
+        `${api.forecast_url}appid=${api.key}&q=karachi&units=metric`
+      );
+      const forecast_data = await forecast_response.json();
+      setForecastData(forecast_data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // default API call function
   const defaultCall = async () => {
     setIsLoading(true);
@@ -99,6 +113,7 @@ function Weather() {
       );
       let data = await response.json();
       setWeatherData(data);
+      forecast();
     } catch (error) {
       setError(error.message);
     } finally {
@@ -122,11 +137,10 @@ function Weather() {
           let data = await response.json();
           if (data.cod === "404") {
             setError("City Not Found!");
-            return
-          }else {
+            return;
+          } else {
             setWeatherData(data);
           }
-
         } catch (error) {
           setError(error.message);
         }
@@ -142,7 +156,7 @@ function Weather() {
         <div className="loader">
           <img
             src="https://www.justbringthechocolate.com/wp-content/plugins/out-of-the-box/css/clouds/cloud_loading_256.gif"
-            alt=""
+            alt="Loader gif"
           />
         </div>
       ) : (
@@ -167,7 +181,7 @@ function Weather() {
           <div className="mainContainer">
             <div className="header">
               <p>Current Weather</p>
-              <button onClick={() => handleKey()}>Change Unit</button>
+              <button onClick={() => handleKey(inpValue)}>Change Unit</button>
             </div>
 
             <div className="currentWeather">

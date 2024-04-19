@@ -7,6 +7,12 @@
 /* Main App Container Styling Start */
 .App {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-color: #1B1B1F;
+  height: 100vh;
 }
 /* Main App Container Styling End */
 
@@ -30,6 +36,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
+  color: #fff;
 }
 
 .logo {
@@ -42,12 +50,11 @@
 }
 
 .credit a {
-  color: #000;
   text-decoration: none;
+  color: #fff;
 }
 
 .credit a:hover {
-  color: #000;
   text-decoration: underline;
 }
 /* Header Stylings End */
@@ -56,7 +63,8 @@
 /* Main container stylings start */
 
 .mainWrapper{
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,11 +86,22 @@
   .searchInp {
     text-transform: capitalize;
     width: 60%;
-    padding: 10px 10px;
-    border-radius: 25px;
-    border: 1px solid gray;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
     font-size: 18px;
     outline: none;
+    border: 2px solid #121214;
+    background-color: #121214;
+    color: lightgray;
+  }
+
+  .searchInp:hover {
+    border: 2px solid #6F74A4;
+  }
+
+  .searchInp:focus{
+    border: 2px solid #6F74A4;
   }
 
 /* Search Stylings End */
@@ -93,12 +112,13 @@
 
 .mainContainer{
   width: 60%;
-  background-color: gray;
+  background-color: #121214;
   border-radius: 5px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 25px;
+  color: #fff;
 }
 
 
@@ -163,6 +183,32 @@
   width: 22px;  
 }
 
+
+.CardSlider {
+  width: 100%;
+  /* background-color: #fff; */
+  border-radius: 3px;
+  padding: 0 10px;
+  display: flex;
+  gap: 10px;
+  overflow-x: scroll;
+}
+
+.cardBody {
+  min-width: 25%;
+  max-width: 25%;
+  max-height: 280px;
+  min-height: 280px;
+  background-color: cadetblue;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 15px;
+  color: #fff;
+}
 
 
 /* Utilities */
