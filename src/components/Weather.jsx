@@ -160,10 +160,12 @@ function Weather() {
   return (
     <>
       {isLoading ? (
-        <LoadingBar color="#0A71C9" progress={progress} />
+        <LoadingBar color="#0A71C9" progress={progress} height="50" />
       ) : (
         <div className="mainWrapper">
-          <LoadingBar color="#0A71C9" progress={100} />
+          <LoadingBar color="#0A71C9" progress={100} height={3}  waitingTime={1000} onLoaderFinished={() => {
+            console.log("loaded...")
+          }}/>
           <div className="searchContainer">
             <input
               type="text"
