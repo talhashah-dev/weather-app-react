@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import LoadingBar from "react-top-loading-bar";
+
 import Arrow_Up_Icon from "../weather_icons/arrow-up.png";
 import Arrow_Down_Icon from "../weather_icons/arrow-down.png";
 import Humidity_Icon from "../weather_icons/humidity.png";
@@ -18,6 +20,7 @@ function Weather() {
   const [forecastData, setForecastData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
     key: "210eeabe1cac851c368047662c4815fd",
@@ -82,6 +85,10 @@ function Weather() {
         break;
 
       case "haze":
+        return icons[4];
+        break;
+
+      case "smoke":
         return icons[4];
         break;
 
@@ -153,14 +160,10 @@ function Weather() {
   return (
     <>
       {isLoading ? (
-        <div className="loader">
-          <img
-            src="https://www.justbringthechocolate.com/wp-content/plugins/out-of-the-box/css/clouds/cloud_loading_256.gif"
-            alt="Loader gif"
-          />
-        </div>
+        <LoadingBar color="#0A71C9" progress={progress} />
       ) : (
         <div className="mainWrapper">
+          <LoadingBar color="#0A71C9" progress={100} />
           <div className="searchContainer">
             <input
               type="text"
