@@ -77,31 +77,39 @@
 /* Search Stylings Start */ 
 
   .searchContainer {
-    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
-  }
-
-  .searchInp {
-    text-transform: capitalize;
     width: 60%;
     padding: 10px 15px;
     border-radius: 10px;
+    background-color: #121214;
+    border: 2px solid #121214;
+  }
+
+  .searchContainer:hover {
+    border: 2px solid #6F74A4;
+  }
+
+  .searchContainer:focus {
+    border: 2px solid #6F74A4;
+  }
+  
+  .searchInp {
+    text-transform: capitalize;
+    width: 100%;
+    height: 100%;
     border: none;
     font-size: 18px;
     outline: none;
-    border: 2px solid #121214;
-    background-color: #121214;
+    background-color: transparent;
     color: lightgray;
   }
 
-  .searchInp:hover {
-    border: 2px solid #6F74A4;
-  }
-
-  .searchInp:focus{
-    border: 2px solid #6F74A4;
+  .searchContainer img {
+    width: 30px;
+    height: 30px;
   }
 
 /* Search Stylings End */

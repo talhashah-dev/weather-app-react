@@ -13,12 +13,12 @@ import Lightning from "../weather_icons/lightning.png";
 import Haze from "../weather_icons/haze.png";
 import Rain from "../weather_icons/rain.png";
 import Snow from "../weather_icons/snow.png";
+import Search_icon from "../weather_icons/search-icon.png";
 
 function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [forecastData, setForecastData] = useState({});
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
@@ -106,6 +106,7 @@ function Weather() {
       );
       const forecast_data = await forecast_response.json();
       setForecastData(forecast_data);
+      console.log(forecast_data);
     } catch (error) {
       console.log(error);
     }
@@ -113,18 +114,17 @@ function Weather() {
 
   // default API call function
   const defaultCall = async () => {
-    setIsLoading(true);
     try {
+      setProgress(progress);
       let response = await fetch(
         `${api.url}appid=${api.key}&q=karachi&units=metric`
       );
       let data = await response.json();
       setWeatherData(data);
-      forecast();
     } catch (error) {
       setError(error.message);
     } finally {
-      setIsLoading(false);
+      setProgress(100);
     }
   };
 
@@ -159,91 +159,92 @@ function Weather() {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingBar color="#0A71C9" progress={progress} height="50" />
+      {progress !== 100 ? (
+        <LoadingBar color="red" progress={progress} />
       ) : (
-        <div className="mainWrapper">
-          <LoadingBar color="#0A71C9" progress={100} height={3}  waitingTime={1000} onLoaderFinished={() => {
-            console.log("loaded...")
-          }}/>
-          <div className="searchContainer">
-            <input
-              type="text"
-              className="searchInp"
-              placeholder="search your location..."
-              onKeyDown={handleKey}
-              onChange={(e) => setInpValue(e.target.value)}
-            />
-          </div>
-
-          {error && (
-            <div className="error">
-              <p onClick={() => setError(null)}>x</p>
-              <p>{error}</p>
-            </div>
-          )}
-
-          <div className="mainContainer">
-            <div className="header">
-              <p>Current Weather</p>
-              <button onClick={() => handleKey(inpValue)}>Change Unit</button>
+        <>
+          <LoadingBar color="red" progress={100} />
+          <div className="mainWrapper">
+            <div className="searchContainer">
+              <input
+                type="text"
+                className="searchInp"
+                placeholder="search your location..."
+                onKeyDown={handleKey}
+                onChange={(e) => setInpValue(e.target.value)}
+              />
+              <img src={Search_icon} alt="Search Icon" onClick={handleKey} />
             </div>
 
-            <div className="currentWeather">
-              {weatherData && (
-                <div className="basicInfo">
-                  <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
-                  <div className="iconBox">
-                    <img
-                      className="icon"
-                      width={"100px"}
-                      src={setIcons(weatherData.weather[0].description)}
-                      alt="Weather Icon"
-                    />
-                    <p className="temp">{`${Math.floor(
-                      weatherData.main.temp
+            {error && (
+              <div className="error">
+                <p onClick={() => setError(null)}>x</p>
+                <p>{error}</p>
+              </div>
+            )}
+
+            <div className="mainContainer">
+              <div className="header">
+                <p>Current Weather</p>
+                <button onClick={() => handleKey(inpValue)}>Change Unit</button>
+              </div>
+
+              <div className="currentWeather">
+                {weatherData && (
+                  <div className="basicInfo">
+                    <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
+                    <div className="iconBox">
+                      <img
+                        className="icon"
+                        width={"100px"}
+                        src={setIcons(weatherData.weather[0].description)}
+                        alt="Weather Icon"
+                      />
+                      <p className="temp">{`${Math.floor(
+                        weatherData.main.temp
+                      )}°`}</p>
+                    </div>
+                    <p className="description">{`${weatherData.weather[0].description}`}</p>
+                  </div>
+                )}
+
+                {weatherData && (
+                  <div className="extraInfo">
+                    <p className="feelsLike">{`Feels like ${Math.floor(
+                      weatherData.main.feels_like
                     )}°`}</p>
-                  </div>
-                  <p className="description">{`${weatherData.weather[0].description}`}</p>
-                </div>
-              )}
-
-              {weatherData && (
-                <div className="extraInfo">
-                  <p className="feelsLike">{`Feels like ${Math.floor(
-                    weatherData.main.feels_like
-                  )}°`}</p>
-                  <div className="tempContainer">
-                    <div className="tempBox">
-                      <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                      <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
+                    <div className="tempContainer">
+                      <div className="tempBox">
+                        <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                        <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
+                      </div>
+                      <div className="tempBox">
+                        <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                        <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
+                      </div>
                     </div>
-                    <div className="tempBox">
-                      <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                      <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
-                    </div>
-                  </div>
 
-                  <span className="row">
-                    <img src={Humidity_Icon} alt="" />
-                    <p className="humidity">Humidity</p>
-                    <p>{`${weatherData.main.humidity}%`}</p>
-                  </span>
-                  <span className="row">
-                    <img src={Wind_Icon} alt="" />
-                    <p className="wind"> Wind</p>
-                    <p>{`${weatherData.wind.speed}km/h`}</p>
-                  </span>
-                  <span className="row">
-                    <img src={Pressure_Icon} alt="" />
-                    <p className="pressure">Pressure</p>
-                    <p>{`${weatherData.main.pressure}%`}</p>
-                  </span>
-                </div>
-              )}
+                    <span className="row">
+                      <img src={Humidity_Icon} alt="" />
+                      <p className="humidity">Humidity</p>
+                      <p>{`${weatherData.main.humidity}%`}</p>
+                    </span>
+                    <span className="row">
+                      <img src={Wind_Icon} alt="" />
+                      <p className="wind"> Wind</p>
+                      <p>{`${weatherData.wind.speed}km/h`}</p>
+                    </span>
+                    <span className="row">
+                      <img src={Pressure_Icon} alt="" />
+                      <p className="pressure">Pressure</p>
+                      <p>{`${weatherData.main.pressure}%`}</p>
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );
