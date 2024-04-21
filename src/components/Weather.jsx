@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
+import { Slide, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Forecast from "./Forecast";
 
 import Arrow_Up_Icon from "../weather_icons/arrow-up.png";
 import Arrow_Down_Icon from "../weather_icons/arrow-down.png";
 import Humidity_Icon from "../weather_icons/humidity.png";
-import Wind_Icon from "../weather_icons/wind_icon.png";
+import Wind_Icon from "../weather_icons/wind.png";
 import Pressure_Icon from "../weather_icons/pressure.png";
 import Clear from "../weather_icons/clear.png";
 import Wind from "../weather_icons/wind.png";
@@ -20,6 +23,19 @@ function Weather() {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState({});
   const [error, setError] = useState("");
+  const notify = () => {
+    toast.error(`${error}`, {
+      position: "bottom-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Slide,
+    });
+  };
   const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
@@ -99,22 +115,24 @@ function Weather() {
 
   /* eslint-enable no-unreachable */
 
-  const forecast = async () => {
+  const forecastCall = async () => {
     try {
       const forecast_response = await fetch(
         `${api.forecast_url}appid=${api.key}&q=karachi&units=metric`
       );
       const forecast_data = await forecast_response.json();
       setForecastData(forecast_data);
-      console.log(forecast_data);
     } catch (error) {
-      console.log(error);
+      error.message === "Failed to fetch"
+        ? setError("Check your connection!")
+        : setError(error.message);
     }
   };
 
   // default API call function
   const defaultCall = async () => {
     try {
+      forecastCall();
       setProgress(progress);
       let response = await fetch(
         `${api.url}appid=${api.key}&q=karachi&units=metric`
@@ -122,7 +140,9 @@ function Weather() {
       let data = await response.json();
       setWeatherData(data);
     } catch (error) {
-      setError(error.message);
+      error.message === "Failed to fetch"
+        ? setError("Check your connection!")
+        : setError(error.message);
     } finally {
       setProgress(100);
     }
@@ -149,7 +169,9 @@ function Weather() {
             setWeatherData(data);
           }
         } catch (error) {
-          setError(error.message);
+          error.message === "Failed to fetch"
+            ? setError("Check your connection!")
+            : setError(error.message);
         }
       } else {
         setError("Please enter a City name!");
@@ -159,93 +181,95 @@ function Weather() {
 
   return (
     <>
-      {progress !== 100 ? (
-        <LoadingBar color="red" progress={progress} />
-      ) : (
-        <>
-          <LoadingBar color="red" progress={100} />
-          <div className="mainWrapper">
-            <div className="searchContainer">
-              <input
-                type="text"
-                className="searchInp"
-                placeholder="search your location..."
-                onKeyDown={handleKey}
-                onChange={(e) => setInpValue(e.target.value)}
-              />
-              <img src={Search_icon} alt="Search Icon" onClick={handleKey} />
-            </div>
+      <LoadingBar color="#6F74A4" progress={100} />
+      <ToastContainer />
+      <div className="mainWrapper">
+        <div className="searchContainer">
+          <input
+            type="text"
+            className="searchInp"
+            placeholder="search your location..."
+            onKeyDown={handleKey}
+            onChange={(e) => setInpValue(e.target.value)}
+          />
+          <span className="searchIconBox">
+            <img src={Search_icon} alt="Search Icon" onClick={handleKey} />
+          </span>
+        </div>
 
-            {error && (
-              <div className="error">
-                <p onClick={() => setError(null)}>x</p>
-                <p>{error}</p>
+        {error &&
+          toast.error(`${error}`, {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            theme: "light",
+            transition: Slide,
+          })}
+
+        <div className="mainContainer">
+          <div className="header">
+            <p>Current Weather</p>
+            <button onClick={() => handleKey(inpValue)}>Change Unit</button>
+          </div>
+
+          <div className="currentWeather">
+            {weatherData && (
+              <div className="basicInfo">
+                <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
+                <div className="iconBox">
+                  <img
+                    className="icon"
+                    width={"100px"}
+                    src={setIcons(weatherData.weather[0].description)}
+                    alt="Weather Icon"
+                  />
+                  <p className="temp">{`${Math.floor(
+                    weatherData.main.temp
+                  )}°`}</p>
+                </div>
+                <p className="description">{`${weatherData.weather[0].description}`}</p>
               </div>
             )}
 
-            <div className="mainContainer">
-              <div className="header">
-                <p>Current Weather</p>
-                <button onClick={() => handleKey(inpValue)}>Change Unit</button>
-              </div>
-
-              <div className="currentWeather">
-                {weatherData && (
-                  <div className="basicInfo">
-                    <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
-                    <div className="iconBox">
-                      <img
-                        className="icon"
-                        width={"100px"}
-                        src={setIcons(weatherData.weather[0].description)}
-                        alt="Weather Icon"
-                      />
-                      <p className="temp">{`${Math.floor(
-                        weatherData.main.temp
-                      )}°`}</p>
-                    </div>
-                    <p className="description">{`${weatherData.weather[0].description}`}</p>
+            {weatherData && (
+              <div className="extraInfo">
+                <p className="feelsLike">{`Feels like ${Math.floor(
+                  weatherData.main.feels_like
+                )}°`}</p>
+                <div className="tempContainer">
+                  <div className="tempBox">
+                    <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                    <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
                   </div>
-                )}
-
-                {weatherData && (
-                  <div className="extraInfo">
-                    <p className="feelsLike">{`Feels like ${Math.floor(
-                      weatherData.main.feels_like
-                    )}°`}</p>
-                    <div className="tempContainer">
-                      <div className="tempBox">
-                        <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                        <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
-                      </div>
-                      <div className="tempBox">
-                        <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                        <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
-                      </div>
-                    </div>
-
-                    <span className="row">
-                      <img src={Humidity_Icon} alt="" />
-                      <p className="humidity">Humidity</p>
-                      <p>{`${weatherData.main.humidity}%`}</p>
-                    </span>
-                    <span className="row">
-                      <img src={Wind_Icon} alt="" />
-                      <p className="wind"> Wind</p>
-                      <p>{`${weatherData.wind.speed}km/h`}</p>
-                    </span>
-                    <span className="row">
-                      <img src={Pressure_Icon} alt="" />
-                      <p className="pressure">Pressure</p>
-                      <p>{`${weatherData.main.pressure}%`}</p>
-                    </span>
+                  <div className="tempBox">
+                    <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                    <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
                   </div>
-                )}
+                </div>
+
+                <span className="row">
+                  <img src={Humidity_Icon} alt="" />
+                  <p className="humidity">Humidity</p>
+                  <p>{`${weatherData.main.humidity}%`}</p>
+                </span>
+                <span className="row">
+                  <img src={Wind_Icon} alt="" />
+                  <p className="wind"> Wind</p>
+                  <p>{`${weatherData.wind.speed}km/h`}</p>
+                </span>
+                <span className="row">
+                  <img src={Pressure_Icon} alt="" />
+                  <p className="pressure">Pressure</p>
+                  <p>{`${weatherData.main.pressure}%`}</p>
+                </span>
               </div>
-            </div>
+            )}
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </>
   );
 }

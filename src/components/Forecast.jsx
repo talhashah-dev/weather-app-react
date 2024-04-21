@@ -17,7 +17,7 @@ function Forecast({ value }) {
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   return (
     <>
-      {forecastData && (
+      {typeof forecastData == !null && (
         <div className="foreCast mainContainer">
           <div className="header">
             <p>Forecast</p>
