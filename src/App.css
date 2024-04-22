@@ -41,11 +41,25 @@
 
 .logo {
   cursor: pointer;
+  opacity: 0.5;
+}
+
+.logo:hover {
+  opacity: 1;
 }
 
 .credit {
   display: flex;
   gap: 10px;
+}
+
+.credit img {
+  width: 30px;
+  opacity: 0.5;
+}
+
+.credit img:hover {
+  opacity: 0.9;
 }
 
 .credit a {
@@ -117,7 +131,7 @@
 }
 
 .searchContainer .searchIconBox:hover {
-  background-color: #fff;
+  background-color: #ffffffe8;
 }
 
 .searchContainer .searchIconBox:active {
@@ -242,19 +256,19 @@
 
 .footer span {
   display: flex;
-  gap: 2px;
+  gap: 5px;
 }
 
 .footer span a {
   text-decoration: none;
   color: #0a71c9;
+  opacity: 0.6;
 }
 
 .footer span a:hover {
-  text-decoration: underline;
+  opacity: 1;
 }
 
-/* Utilities */
 .row {
   display: flex;
   gap: 15px;

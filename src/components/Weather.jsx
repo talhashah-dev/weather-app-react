@@ -4,38 +4,25 @@ import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Forecast from "./Forecast";
 
-import Arrow_Up_Icon from "../weather_icons/arrow-up.png";
-import Arrow_Down_Icon from "../weather_icons/arrow-down.png";
-import Humidity_Icon from "../weather_icons/humidity.png";
-import Wind_Icon from "../weather_icons/wind.png";
-import Pressure_Icon from "../weather_icons/pressure.png";
-import Clear from "../weather_icons/clear.png";
-import Wind from "../weather_icons/wind.png";
-import Cloudy from "../weather_icons/cloudy.png";
-import Lightning from "../weather_icons/lightning.png";
-import Haze from "../weather_icons/haze.png";
-import Rain from "../weather_icons/rain.png";
-import Snow from "../weather_icons/snow.png";
-import Search_icon from "../weather_icons/search-icon.png";
+import Arrow_Up_Icon from "../assets/arrow-up.png";
+import Arrow_Down_Icon from "../assets/arrow-down.png";
+import Humidity_Icon from "../assets/humidity.png";
+import Wind_Icon from "../assets/wind.png";
+import Pressure_Icon from "../assets/pressure.png";
+import Clear from "../assets/clear.png";
+import Wind from "../assets/wind.png";
+import Cloudy from "../assets/cloudy.png";
+import Lightning from "../assets/lightning.png";
+import Haze from "../assets/haze.png";
+import Rain from "../assets/rain.png";
+import Snow from "../assets/snow.png";
+import Search_icon from "../assets/search-icon.png";
 
 function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState({});
   const [error, setError] = useState("");
-  const notify = () => {
-    toast.error(`${error}`, {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Slide,
-    });
-  };
   const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
@@ -156,7 +143,7 @@ function Weather() {
   // API call function on key press
   const handleKey = async (event) => {
     if (event.key === "Enter") {
-      if (inpValue !== "") {
+      if (inpValue.trim() !== "") {
         try {
           let response = await fetch(
             `${api.url}appid=${api.key}&q=${inpValue}&units=metric`
@@ -164,9 +151,9 @@ function Weather() {
           let data = await response.json();
           if (data.cod === "404") {
             setError("City Not Found!");
-            return;
           } else {
             setWeatherData(data);
+            setError("");
           }
         } catch (error) {
           error.message === "Failed to fetch"
@@ -176,13 +163,20 @@ function Weather() {
       } else {
         setError("Please enter a City name!");
       }
+    } else {
+      setError("");
     }
   };
 
+  const handleSearch = () => {
+    handleKey();
+  };
+
+
+
   return (
     <>
-      <LoadingBar color="#6F74A4" progress={100} />
-      <ToastContainer />
+      <LoadingBar color="#6F74A4" progress={100} height={3} />
       <div className="mainWrapper">
         <div className="searchContainer">
           <input
@@ -193,26 +187,27 @@ function Weather() {
             onChange={(e) => setInpValue(e.target.value)}
           />
           <span className="searchIconBox">
-            <img src={Search_icon} alt="Search Icon" onClick={handleKey} />
+            <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
           </span>
         </div>
 
-        {error &&
-          toast.error(`${error}`, {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            theme: "light",
-            transition: Slide,
-          })}
+        {error && (
+          <ToastContainer
+            position="bottom-left"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            draggable
+          >
+            {toast.error(error, { transition: Slide })}
+          </ToastContainer>
+        )}
 
         <div className="mainContainer">
           <div className="header">
             <p>Current Weather</p>
-            <button onClick={() => handleKey(inpValue)}>Change Unit</button>
+            {/* <button>Change Units</button> */}
           </div>
 
           <div className="currentWeather">
@@ -251,17 +246,17 @@ function Weather() {
                 </div>
 
                 <span className="row">
-                  <img src={Humidity_Icon} alt="" />
+                  <img src={Humidity_Icon} alt="Humidity Icon" />
                   <p className="humidity">Humidity</p>
                   <p>{`${weatherData.main.humidity}%`}</p>
                 </span>
                 <span className="row">
-                  <img src={Wind_Icon} alt="" />
+                  <img src={Wind_Icon} alt="Wind Icon" />
                   <p className="wind"> Wind</p>
                   <p>{`${weatherData.wind.speed}km/h`}</p>
                 </span>
                 <span className="row">
-                  <img src={Pressure_Icon} alt="" />
+                  <img src={Pressure_Icon} alt="Pressure Icon" />
                   <p className="pressure">Pressure</p>
                   <p>{`${weatherData.main.pressure}%`}</p>
                 </span>

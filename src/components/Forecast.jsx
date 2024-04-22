@@ -1,16 +1,16 @@
 import React from "react";
 import "../App.css";
-import Arrow_Up_Icon from "../weather_icons/arrow-up.png";
-import Arrow_Down_Icon from "../weather_icons/arrow-down.png";
-import Humidity_Icon from "../weather_icons/humidity.png";
-import Wind_Icon from "../weather_icons/wind_icon.png";
-import Clear from "../weather_icons/clear.png";
-import Wind from "../weather_icons/wind.png";
-import Cloudy from "../weather_icons/cloudy.png";
-import Lightning from "../weather_icons/lightning.png";
-import Haze from "../weather_icons/haze.png";
-import Rain from "../weather_icons/rain.png";
-import Snow from "../weather_icons/snow.png";
+import Arrow_Up_Icon from "../assets/arrow-up.png";
+import Arrow_Down_Icon from "../assets/arrow-down.png";
+import Humidity_Icon from "../assets/humidity.png";
+import Wind_Icon from "../assets/wind_icon.png";
+import Clear from "../assets/clear.png";
+import Wind from "../assets/wind.png";
+import Cloudy from "../assets/cloudy.png";
+import Lightning from "../assets/lightning.png";
+import Haze from "../assets/haze.png";
+import Rain from "../assets/rain.png";
+import Snow from "../assets/snow.png";
 
 function Forecast({ value }) {
   const forecastData = value;
