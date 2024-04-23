@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Forecast from "./Forecast";
 
 import Arrow_Up_Icon from "../assets/arrow-up.png";
 import Arrow_Down_Icon from "../assets/arrow-down.png";
@@ -21,13 +20,13 @@ import Search_icon from "../assets/search-icon.png";
 function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState({});
+  const [forecastData, setForecastData] = useState("");
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
   const api = {
     key: "210eeabe1cac851c368047662c4815fd",
-    url: "https://api.openweathermap.org/data/2.5/weather?",
+    main_url: "https://api.openweathermap.org/data/2.5/weather?",
     forecast_url: "https://api.openweathermap.org/data/2.5/forecast?",
   };
 
@@ -75,7 +74,11 @@ function Weather() {
         return icons[5];
         break;
 
-      case "thunderstorm":
+      case "thunderstorm thunderstorm with light rain":
+        return icons[3];
+        break;
+
+      case "thunderstorm with light rain":
         return icons[3];
         break;
 
@@ -103,15 +106,16 @@ function Weather() {
   /* eslint-enable no-unreachable */
 
   const forecastCall = async () => {
+    console.log("Working...");
     try {
-      const forecast_response = await fetch(
-        `${api.forecast_url}appid=${api.key}&q=karachi&units=metric`
+      const forecastRes = await fetch(
+        `${api.forecast_url}appid=${api.key}&q=lahore&units=metric`
       );
-      const forecast_data = await forecast_response.json();
-      setForecastData(forecast_data);
+      const forecastResData = await forecastRes.json();
+      setForecastData(forecastResData);
     } catch (error) {
       error.message === "Failed to fetch"
-        ? setError("Check your connection!")
+        ? setError("Check your connections!")
         : setError(error.message);
     }
   };
@@ -119,16 +123,16 @@ function Weather() {
   // default API call function
   const defaultCall = async () => {
     try {
-      forecastCall();
       setProgress(progress);
       let response = await fetch(
-        `${api.url}appid=${api.key}&q=karachi&units=metric`
+        `${api.main_url}appid=${api.key}&q=karachi&units=metric`
       );
       let data = await response.json();
       setWeatherData(data);
+      forecastCall();
     } catch (error) {
       error.message === "Failed to fetch"
-        ? setError("Check your connection!")
+        ? setError("Check your connections!")
         : setError(error.message);
     } finally {
       setProgress(100);
@@ -141,38 +145,36 @@ function Weather() {
   }, []);
 
   // API call function on key press
-  const handleKey = async (event) => {
+  const handleKey = (event) => {
     if (event.key === "Enter") {
-      if (inpValue.trim() !== "") {
-        try {
-          let response = await fetch(
-            `${api.url}appid=${api.key}&q=${inpValue}&units=metric`
-          );
-          let data = await response.json();
-          if (data.cod === "404") {
-            setError("City Not Found!");
-          } else {
-            setWeatherData(data);
-            setError("");
-          }
-        } catch (error) {
-          error.message === "Failed to fetch"
-            ? setError("Check your connection!")
-            : setError(error.message);
-        }
-      } else {
-        setError("Please enter a City name!");
-      }
+      handleSearch();
     } else {
       setError("");
     }
   };
 
-  const handleSearch = () => {
-    handleKey();
+  const handleSearch = async () => {
+    if (inpValue.trim() !== "") {
+      try {
+        let response = await fetch(
+          `${api.main_url}appid=${api.key}&q=${inpValue}&units=metric`
+        );
+        let data = await response.json();
+        if (data.cod === "404") {
+          setError("City Not Found!");
+        } else {
+          setWeatherData(data);
+          setError("");
+        }
+      } catch (error) {
+        error.message === "Failed to fetch"
+          ? setError("Check your connections!")
+          : setError(error.message);
+      }
+    } else {
+      setError("Please enter a City name!");
+    }
   };
-
-
 
   return (
     <>
@@ -190,19 +192,6 @@ function Weather() {
             <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
           </span>
         </div>
-
-        {error && (
-          <ToastContainer
-            position="bottom-left"
-            autoClose={3000}
-            hideProgressBar={false}
-            closeOnClick
-            pauseOnHover
-            draggable
-          >
-            {toast.error(error, { transition: Slide })}
-          </ToastContainer>
-        )}
 
         <div className="mainContainer">
           <div className="header">
@@ -265,6 +254,18 @@ function Weather() {
           </div>
         </div>
       </div>
+      {error && (
+        <ToastContainer
+          position="bottom-left"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover={false}
+          draggable={false}
+        >
+          {toast.error(error, { transition: Slide })}
+        </ToastContainer>
+      )}
     </>
   );
 }

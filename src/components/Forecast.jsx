@@ -12,20 +12,97 @@ import Haze from "../assets/haze.png";
 import Rain from "../assets/rain.png";
 import Snow from "../assets/snow.png";
 
-function Forecast({ value }) {
-  const forecastData = value;
+function Forecast({ forecast }) {
+  const forecastData = forecast;
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
+  // Icon change function
+  /* eslint-disable no-unreachable */
+  const setIcons = (weatherData) => {
+    switch (weatherData) {
+      case "clear sky":
+        return icons[0];
+        break;
+
+      case "few clouds":
+        return icons[2];
+        break;
+
+      case "scattered clouds":
+        return icons[2];
+        break;
+
+      case "drizzle":
+        return icons[2];
+        break;
+
+      case "overcast clouds":
+        return icons[2];
+        break;
+
+      case "broken clouds":
+        return icons[2];
+        break;
+
+      case "shower rain":
+        return icons[5];
+        break;
+
+      case "light rain":
+        return icons[5];
+        break;
+
+      case "moderate rain":
+        return icons[5];
+        break;
+
+      case "rain":
+        return icons[5];
+        break;
+
+      case "thunderstorm thunderstorm with light rain":
+        return icons[3];
+        break;
+
+      case "thunderstorm with light rain":
+        return icons[3];
+        break;
+
+      case "snow":
+        return icons[6];
+        break;
+
+      case "light snow":
+        return icons[6];
+        break;
+
+      case "haze":
+        return icons[4];
+        break;
+
+      case "smoke":
+        return icons[4];
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <>
-      {typeof forecastData == !null && (
+      {forecastData !== undefined && (
         <div className="foreCast mainContainer">
-          <div className="header">
+          {/* <div className="header">
             <p>Forecast</p>
           </div>
 
           <div className="CardSlider">
             <div className="cardBody">
-              <img src={Clear} alt="" className="cardImg icon" />
+              <img
+                src={setIcons(forecastData.list[0].weather[0].description)}
+                alt={forecastData.list[0].weather[0].description}
+                className="cardImg icon"
+              />
               <p className="description">
                 {forecastData.list[0].weather[0].description}
               </p>
@@ -107,7 +184,7 @@ function Forecast({ value }) {
                 <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </>
