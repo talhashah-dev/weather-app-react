@@ -250,6 +250,7 @@ function Weather() {
                   <p>{`${weatherData.main.pressure}%`}</p>
                 </span>
               </div>
+              
             )}
           </div>
         </div>
