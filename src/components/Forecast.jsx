@@ -1,16 +1,16 @@
 import React from "react";
-import "../App.css";
-import Arrow_Up_Icon from "../assets/arrow-up.png";
-import Arrow_Down_Icon from "../assets/arrow-down.png";
-import Humidity_Icon from "../assets/humidity.png";
-import Wind_Icon from "../assets/wind_icon.png";
-import Clear from "../assets/clear.png";
-import Wind from "../assets/wind.png";
-import Cloudy from "../assets/cloudy.png";
-import Lightning from "../assets/lightning.png";
-import Haze from "../assets/haze.png";
-import Rain from "../assets/rain.png";
-import Snow from "../assets/snow.png";
+import "../assets/css/styles.css"
+import Arrow_Up_Icon from "../assets/images/arrow-up.png";
+import Arrow_Down_Icon from "../assets/images/arrow-down.png";
+import Humidity_Icon from "../assets/images/humidity.png";
+import Wind_Icon from "../assets/images/wind_icon.png";
+import Clear from "../assets/images/clear.png";
+import Wind from "../assets/images/wind.png";
+import Cloudy from "../assets/images/cloudy.png";
+import Lightning from "../assets/images/lightning.png";
+import Haze from "../assets/images/haze.png";
+import Rain from "../assets/images/rain.png";
+import Snow from "../assets/images/snow.png";
 
 function Forecast({ forecastData }) {
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];

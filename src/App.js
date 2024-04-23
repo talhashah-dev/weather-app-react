@@ -1,4 +1,3 @@
-import "./App.css";
 import Footer from "./components/Footer";
 import Forecast from "./components/Forecast";
 import Header from "./components/Header";

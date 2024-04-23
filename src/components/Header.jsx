@@ -1,6 +1,6 @@
 import React from 'react'
-import "../App.css"
-import github_icon from "../assets/github-icon.png"
+import "../assets/css/styles.css"
+import github_icon from "../assets/images/github-icon.png"
 
 function Header() {
   return (
