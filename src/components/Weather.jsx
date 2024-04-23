@@ -36,77 +36,60 @@ function Weather() {
     switch (weatherData) {
       case "clear sky":
         return icons[0];
-        break;
 
       case "few clouds":
         return icons[2];
-        break;
 
       case "scattered clouds":
         return icons[2];
-        break;
 
       case "drizzle":
         return icons[2];
-        break;
 
       case "overcast clouds":
         return icons[2];
-        break;
 
       case "broken clouds":
         return icons[2];
-        break;
 
       case "shower rain":
         return icons[5];
-        break;
 
       case "light rain":
         return icons[5];
-        break;
 
       case "moderate rain":
         return icons[5];
-        break;
 
       case "rain":
         return icons[5];
-        break;
 
       case "thunderstorm thunderstorm with light rain":
         return icons[3];
-        break;
 
       case "thunderstorm with light rain":
         return icons[3];
-        break;
 
       case "snow":
         return icons[6];
-        break;
 
       case "light snow":
         return icons[6];
-        break;
 
       case "haze":
         return icons[4];
-        break;
 
       case "smoke":
         return icons[4];
-        break;
 
       default:
-        break;
+        return icons[0];
     }
   };
 
   /* eslint-enable no-unreachable */
 
   const forecastCall = async () => {
-    console.log("Working...");
     try {
       const forecastRes = await fetch(
         `${api.forecast_url}appid=${api.key}&q=lahore&units=metric`
@@ -250,7 +233,6 @@ function Weather() {
                   <p>{`${weatherData.main.pressure}%`}</p>
                 </span>
               </div>
-              
             )}
           </div>
         </div>
