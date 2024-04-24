@@ -1,3 +1,7 @@
+
+![Weather App Demo](./src/assets/project%20demo/React-WeatherApp-Demo-04-24-2024.gif)
+
+
 # Weather Application
 
 This is a simple weather application built with React that allows users to check the current weather and forecast for a specific location using the OpenWeatherMap API.
