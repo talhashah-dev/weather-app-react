@@ -133,6 +133,10 @@ code {
   color: lightgray;
 }
 
+/* .searchInp:focus::-webkit-input-placeholder {
+  color: transparent;
+} */
+
 .searchContainer .searchIconBox {
   width: 35px;
   height: 35px;
@@ -292,25 +296,8 @@ code {
   width: 20px;
 }
 
-.error {
-  width: 30%;
-  height: 50px;
-  background-color: transparent;
-  border: 1.5px solid #d13438;
-  color: #d13438;
-  border-radius: 5px;
-  text-align: center;
-  padding: 0 10px;
-  transition: all 0.15s;
-}
-
-.error:hover {
-  border: 1.5px solid #fff;
-  color: #fff;
-}
-
-.error p:first-child {
-  color: #d13438;
+.textHover:hover {
   cursor: pointer;
-  text-align: right;
+  color: #aaa;
 }
+

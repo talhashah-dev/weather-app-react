@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/css/styles.css"
+import "../assets/css/styles.css";
 import Arrow_Up_Icon from "../assets/images/arrow-up.png";
 import Arrow_Down_Icon from "../assets/images/arrow-down.png";
 import Humidity_Icon from "../assets/images/humidity.png";
@@ -14,7 +14,8 @@ import Snow from "../assets/images/snow.png";
 
 function Forecast({ forecastData }) {
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
-  
+  console.log(forecastData);
+
   // Icon change function
   const setIcons = (weatherData) => {
     switch (weatherData) {
@@ -73,103 +74,109 @@ function Forecast({ forecastData }) {
 
   return (
     <>
-      {forecastData !== undefined && (
-        <div className="foreCast mainContainer">
-          {/* <div className="header">
-            <p>Forecast</p>
-          </div>
-
-          <div className="CardSlider">
-            <div className="cardBody">
-              <img
-                src={setIcons(forecastData.list[0].weather[0].description)}
-                alt={forecastData.list[0].weather[0].description}
-                className="cardImg icon"
-              />
-              <p className="description">
-                {forecastData.list[0].weather[0].description}
-              </p>
-              <div className="row">
-                <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                <p>{`${forecastData.list[0].main.temp_max}°`}</p>
-                <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                <p>{`${forecastData.list[0].main.temp_min}°`}</p>
-              </div>
-              <span className="row">
-                <img src={Humidity_Icon} alt="" />
-                <p>{`${forecastData.list[0].main.humidity}%`}</p>
-              </span>
-              <span className="row">
-                <img src={Wind_Icon} alt="" />
-                <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
-              </span>
-            </div>
-
-            <div className="cardBody">
-              <img src={Clear} alt="" className="cardImg icon" />
-              <p className="description">
-                {forecastData.list[0].weather[0].description}
-              </p>
-              <div className="row">
-                <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                <p>{`${forecastData.list[0].main.temp_max}°`}</p>
-                <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                <p>{`${forecastData.list[0].main.temp_min}°`}</p>
-              </div>
-              <span className="row">
-                <img src={Humidity_Icon} alt="" />
-                <p>{`${forecastData.list[0].main.humidity}%`}</p>
-              </span>
-              <span className="row">
-                <img src={Wind_Icon} alt="" />
-                <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
-              </span>
-            </div>
-
-            <div className="cardBody">
-              <img src={Clear} alt="" className="cardImg icon" />
-              <p className="description">
-                {forecastData.list[0].weather[0].description}
-              </p>
-              <div className="row">
-                <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                <p>{`${forecastData.list[0].main.temp_max}°`}</p>
-                <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                <p>{`${forecastData.list[0].main.temp_min}°`}</p>
-              </div>
-              <span className="row">
-                <img src={Humidity_Icon} alt="" />
-                <p>{`${forecastData.list[0].main.humidity}%`}</p>
-              </span>
-              <span className="row">
-                <img src={Wind_Icon} alt="" />
-                <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
-              </span>
-            </div>
-
-            <div className="cardBody">
-              <img src={Clear} alt="" className="cardImg icon" />
-              <p className="description">
-                {forecastData.list[0].weather[0].description}
-              </p>
-              <div className="row">
-                <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                <p>{`${forecastData.list[0].main.temp_max}°`}</p>
-                <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                <p>{`${forecastData.list[0].main.temp_min}°`}</p>
-              </div>
-              <span className="row">
-                <img src={Humidity_Icon} alt="" />
-                <p>{`${forecastData.list[0].main.humidity}%`}</p>
-              </span>
-              <span className="row">
-                <img src={Wind_Icon} alt="" />
-                <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
-              </span>
-            </div>
-          </div> */}
+      <div className="foreCast mainContainer">
+        <div className="header">
+          <p>Forecast</p>
         </div>
-      )}
+
+        {forecastData === undefined ? (
+          <div>
+            <p className="textHover">No Data Found!</p>
+          </div>
+        ) : (
+          <>
+            <div className="CardSlider">
+              <div className="cardBody">
+                <img
+                  src={setIcons(forecastData.list[0].weather[0].description)}
+                  alt={forecastData.list[0].weather[0].description}
+                  className="cardImg icon"
+                />
+                <p className="description">
+                  {forecastData.list[0].weather[0].description}
+                </p>
+                <div className="row">
+                  <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                  <p>{`${forecastData.list[0].main.temp_max}°`}</p>
+                  <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                  <p>{`${forecastData.list[0].main.temp_min}°`}</p>
+                </div>
+                <span className="row">
+                  <img src={Humidity_Icon} alt="" />
+                  <p>{`${forecastData.list[0].main.humidity}%`}</p>
+                </span>
+                <span className="row">
+                  <img src={Wind_Icon} alt="" />
+                  <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
+                </span>
+              </div>
+
+              <div className="cardBody">
+                <img src={Clear} alt="" className="cardImg icon" />
+                <p className="description">
+                  {forecastData.list[0].weather[0].description}
+                </p>
+                <div className="row">
+                  <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                  <p>{`${forecastData.list[0].main.temp_max}°`}</p>
+                  <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                  <p>{`${forecastData.list[0].main.temp_min}°`}</p>
+                </div>
+                <span className="row">
+                  <img src={Humidity_Icon} alt="" />
+                  <p>{`${forecastData.list[0].main.humidity}%`}</p>
+                </span>
+                <span className="row">
+                  <img src={Wind_Icon} alt="" />
+                  <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
+                </span>
+              </div>
+
+              <div className="cardBody">
+                <img src={Clear} alt="" className="cardImg icon" />
+                <p className="description">
+                  {forecastData.list[0].weather[0].description}
+                </p>
+                <div className="row">
+                  <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                  <p>{`${forecastData.list[0].main.temp_max}°`}</p>
+                  <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                  <p>{`${forecastData.list[0].main.temp_min}°`}</p>
+                </div>
+                <span className="row">
+                  <img src={Humidity_Icon} alt="" />
+                  <p>{`${forecastData.list[0].main.humidity}%`}</p>
+                </span>
+                <span className="row">
+                  <img src={Wind_Icon} alt="" />
+                  <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
+                </span>
+              </div>
+
+              <div className="cardBody">
+                <img src={Clear} alt="" className="cardImg icon" />
+                <p className="description">
+                  {forecastData.list[0].weather[0].description}
+                </p>
+                <div className="row">
+                  <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                  <p>{`${forecastData.list[0].main.temp_max}°`}</p>
+                  <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                  <p>{`${forecastData.list[0].main.temp_min}°`}</p>
+                </div>
+                <span className="row">
+                  <img src={Humidity_Icon} alt="" />
+                  <p>{`${forecastData.list[0].main.humidity}%`}</p>
+                </span>
+                <span className="row">
+                  <img src={Wind_Icon} alt="" />
+                  <p>{`${forecastData.list[0].wind.speed}km/h`}</p>
+                </span>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </>
   );
 }

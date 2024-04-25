@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/styles.css"
+import "../assets/css/styles.css";
 import LoadingBar from "react-top-loading-bar";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -171,6 +171,7 @@ function Weather() {
             placeholder="search your location..."
             onKeyDown={handleKey}
             onChange={(e) => setInpValue(e.target.value)}
+            autoFocus
           />
           <span className="searchIconBox">
             <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
@@ -184,56 +185,60 @@ function Weather() {
           </div>
 
           <div className="currentWeather">
-            {weatherData && (
-              <div className="basicInfo">
-                <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
-                <div className="iconBox">
-                  <img
-                    className="icon"
-                    width={"100px"}
-                    src={setIcons(weatherData.weather[0].description)}
-                    alt="Weather Icon"
-                  />
-                  <p className="temp">{`${Math.floor(
-                    weatherData.main.temp
+            {weatherData === null ? (
+              <div>
+                <p className="textHover">No Data Found!</p>
+              </div>
+            ) : (
+              <>
+                <div className="basicInfo">
+                  <p className="location">{`${weatherData.name}, ${weatherData.sys.country}`}</p>
+                  <div className="iconBox">
+                    <img
+                      className="icon"
+                      width={"100px"}
+                      src={setIcons(weatherData.weather[0].description)}
+                      alt="Weather Icon"
+                    />
+                    <p className="temp">{`${Math.floor(
+                      weatherData.main.temp
+                    )}°`}</p>
+                  </div>
+                  <p className="description">{`${weatherData.weather[0].description}`}</p>
+                </div>
+
+                <div className="extraInfo">
+                  <p className="feelsLike">{`Feels like ${Math.floor(
+                    weatherData.main.feels_like
                   )}°`}</p>
-                </div>
-                <p className="description">{`${weatherData.weather[0].description}`}</p>
-              </div>
-            )}
-
-            {weatherData && (
-              <div className="extraInfo">
-                <p className="feelsLike">{`Feels like ${Math.floor(
-                  weatherData.main.feels_like
-                )}°`}</p>
-                <div className="tempContainer">
-                  <div className="tempBox">
-                    <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
-                    <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
+                  <div className="tempContainer">
+                    <div className="tempBox">
+                      <img src={Arrow_Up_Icon} alt="Arrow Up Icon" />
+                      <p className="max_temp">{`${weatherData.main.temp_max}°`}</p>
+                    </div>
+                    <div className="tempBox">
+                      <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
+                      <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
+                    </div>
                   </div>
-                  <div className="tempBox">
-                    <img src={Arrow_Down_Icon} alt="Arrow Down Icon" />
-                    <p className="min_temp">{`${weatherData.main.temp_min}°`}</p>
-                  </div>
-                </div>
 
-                <span className="row">
-                  <img src={Humidity_Icon} alt="Humidity Icon" />
-                  <p className="humidity">Humidity</p>
-                  <p>{`${weatherData.main.humidity}%`}</p>
-                </span>
-                <span className="row">
-                  <img src={Wind_Icon} alt="Wind Icon" />
-                  <p className="wind"> Wind</p>
-                  <p>{`${weatherData.wind.speed}km/h`}</p>
-                </span>
-                <span className="row">
-                  <img src={Pressure_Icon} alt="Pressure Icon" />
-                  <p className="pressure">Pressure</p>
-                  <p>{`${weatherData.main.pressure}%`}</p>
-                </span>
-              </div>
+                  <span className="row">
+                    <img src={Humidity_Icon} alt="Humidity Icon" />
+                    <p className="humidity">Humidity</p>
+                    <p>{`${weatherData.main.humidity}%`}</p>
+                  </span>
+                  <span className="row">
+                    <img src={Wind_Icon} alt="Wind Icon" />
+                    <p className="wind"> Wind</p>
+                    <p>{`${weatherData.wind.speed}km/h`}</p>
+                  </span>
+                  <span className="row">
+                    <img src={Pressure_Icon} alt="Pressure Icon" />
+                    <p className="pressure">Pressure</p>
+                    <p>{`${weatherData.main.pressure}%`}</p>
+                  </span>
+                </div>
+              </>
             )}
           </div>
         </div>
