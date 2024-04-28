@@ -1,6 +1,4 @@
 
-![Weather App Demo](./src/assets/project%20demo/React-WeatherApp-Demo-04-24-2024.gif)
-
 
 # Weather Application
 
