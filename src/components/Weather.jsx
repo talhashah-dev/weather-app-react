@@ -21,7 +21,7 @@ import Search_icon from "../assets/images/search-icon.png";
 function Weather() {
   const [inpValue, setInpValue] = useState("");
   const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState("");
+  // const [forecastData, setForecastData] = useState("");
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(0);
   const icons = [Clear, Wind, Cloudy, Lightning, Haze, Rain, Snow];
@@ -90,19 +90,19 @@ function Weather() {
 
   /* eslint-enable no-unreachable */
 
-  const forecastCall = async () => {
-    try {
-      const forecastRes = await fetch(
-        `${api.forecast_url}appid=${api.key}&q=lahore&units=metric`
-      );
-      const forecastResData = await forecastRes.json();
-      setForecastData(forecastResData);
-    } catch (error) {
-      error.message === "Failed to fetch"
-        ? setError("Check your connections!")
-        : setError(error.message);
-    }
-  };
+  // const forecastCall = async () => {
+  //   try {
+  //     const forecastRes = await fetch(
+  //       `${api.forecast_url}appid=${api.key}&q=lahore&units=metric`
+  //     );
+  //     const forecastResData = await forecastRes.json();
+  //     setForecastData(forecastResData);
+  //   } catch (error) {
+  //     error.message === "Failed to fetch"
+  //       ? setError("Check your connections!")
+  //       : setError(error.message);
+  //   }
+  // };
 
   // default API call function
   const defaultCall = async () => {
@@ -113,7 +113,6 @@ function Weather() {
       );
       let data = await response.json();
       setWeatherData(data);
-      forecastCall();
     } catch (error) {
       error.message === "Failed to fetch"
         ? setError("Check your connections!")

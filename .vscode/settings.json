@@ -3,6 +3,7 @@
         "openweathermap",
         "Swal",
         "sweetalert",
-        "Talha"
+        "Talha",
+        "Toastify"
     ]
 }
