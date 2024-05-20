@@ -161,6 +161,28 @@ function Weather() {
     }
   };
 
+  const locationSearch = async () => {
+    const resolve = async (location) => {
+      const latitude = location.coords.latitude;
+      const longitude = location.coords.longitude;
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lon=${longitude}&lat=${latitude}&units=metric&appid=${api.key}`
+        );
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const reject = () => {
+      console.log("Access Denied!");
+    };
+
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  };
+
   return (
     <>
       <LoadingBar color="#6F74A4" progress={100} height={3} />
@@ -174,6 +196,7 @@ function Weather() {
             onChange={(e) => setInpValue(e.target.value)}
             autoFocus
           />
+          <button onClick={locationSearch}>Search</button>
           <span className="searchIconBox">
             <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
           </span>
