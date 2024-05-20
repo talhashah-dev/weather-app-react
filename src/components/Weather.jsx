@@ -4,19 +4,21 @@ import LoadingBar from "react-top-loading-bar";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Arrow_Up_Icon from "../assets/images/arrow-up.png";
-import Arrow_Down_Icon from "../assets/images/arrow-down.png";
-import Humidity_Icon from "../assets/images/humidity.png";
-import Wind_Icon from "../assets/images/wind.png";
-import Pressure_Icon from "../assets/images/pressure.png";
-import Clear from "../assets/images/clear.png";
-import Wind from "../assets/images/wind.png";
-import Cloudy from "../assets/images/cloudy.png";
-import Lightning from "../assets/images/lightning.png";
-import Haze from "../assets/images/haze.png";
-import Rain from "../assets/images/rain.png";
-import Snow from "../assets/images/snow.png";
-import Search_icon from "../assets/images/search-icon.png";
+import {
+  Arrow_Up_Icon,
+  Arrow_Down_Icon,
+  Humidity_Icon,
+  Wind_Icon,
+  Pressure_Icon,
+  Clear,
+  Wind,
+  Cloudy,
+  Lightning,
+  Haze,
+  Rain,
+  Snow,
+  Search_icon,
+} from "../assets/images/images.js";
 
 function Weather() {
   const [inpValue, setInpValue] = useState("");
@@ -65,7 +67,7 @@ function Weather() {
       case "rain":
         return icons[5];
 
-      case "thunderstorm thunderstorm with light rain":
+      case "thunderstorm":
         return icons[3];
 
       case "thunderstorm with light rain":
