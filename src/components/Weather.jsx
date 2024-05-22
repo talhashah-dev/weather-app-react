@@ -18,6 +18,7 @@ import {
   Rain,
   Snow,
   Search_icon,
+  Location_icon,
 } from "../assets/images/images.js";
 
 function Weather() {
@@ -188,6 +189,9 @@ function Weather() {
       <LoadingBar color="#6F74A4" progress={100} height={3} />
       <div className="mainWrapper">
         <div className="searchContainer">
+          <span className="searchIconBox">
+            <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
+          </span>
           <input
             type="text"
             className="searchInp"
@@ -196,9 +200,12 @@ function Weather() {
             onChange={(e) => setInpValue(e.target.value)}
             autoFocus
           />
-          <button onClick={locationSearch}>Search</button>
           <span className="searchIconBox">
-            <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
+            <img
+              src={Location_icon}
+              alt="Search Icon"
+              onClick={locationSearch}
+            />
           </span>
         </div>
 

@@ -11,6 +11,7 @@ import Haze from "./haze.png";
 import Rain from "./rain.png";
 import Snow from "./snow.png";
 import Search_icon from "./search-icon.png";
+import Location_icon from "./location-icon.png"
 
 export {
   Arrow_Up_Icon,
@@ -26,4 +27,5 @@ export {
   Rain,
   Snow,
   Search_icon,
+  Location_icon
 };
