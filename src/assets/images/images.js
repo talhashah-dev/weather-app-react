@@ -1,4 +1,4 @@
-import Arrow_Up_Icon from "./arrow-down.png";
+import Arrow_Up_Icon from "./arrow-up.png";
 import Arrow_Down_Icon from "./arrow-down.png";
 import Humidity_Icon from "./humidity.png";
 import Wind_Icon from "./wind.png";
