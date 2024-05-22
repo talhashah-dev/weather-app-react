@@ -189,9 +189,7 @@ function Weather() {
       <LoadingBar color="#6F74A4" progress={100} height={3} />
       <div className="mainWrapper">
         <div className="searchContainer">
-          <span className="searchIconBox">
-            <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
-          </span>
+          <img src={Search_icon} alt="Search Icon" onClick={handleSearch} />
           <input
             type="text"
             className="searchInp"
@@ -200,13 +198,7 @@ function Weather() {
             onChange={(e) => setInpValue(e.target.value)}
             autoFocus
           />
-          <span className="searchIconBox">
-            <img
-              src={Location_icon}
-              alt="Search Icon"
-              onClick={locationSearch}
-            />
-          </span>
+          <img src={Location_icon} alt="Search Icon" onClick={locationSearch} />
         </div>
 
         <div className="mainContainer">

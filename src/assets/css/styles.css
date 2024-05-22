@@ -136,28 +136,21 @@ code {
   color: transparent;
 } */
 
-.searchContainer .searchIconBox {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.searchContainer img {
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   transition: all 0.3s;
   cursor: pointer;
+  padding: 2px;
 }
 
-.searchContainer .searchIconBox:hover {
+.searchContainer img:hover {
   background-color: #ffffffe8;
 }
 
-.searchContainer .searchIconBox:active {
+.searchContainer img:active {
   scale: 0.95;
-}
-
-.searchContainer img {
-  width: 70%;
-  height: 70%;
 }
 
 /* Search Stylings End */
@@ -260,11 +253,26 @@ code {
   color: #fff;
 }
 
-.footer {
+.row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  gap: 15px;
+}
+
+.row img {
+  width: 20px;
+}
+
+.textHover {
+  text-align: center;
+}
+
+.textHover:hover {
+  cursor: pointer;
+  color: #aaa;
+}
+
+.footer {
+  margin: 0 auto;
   color: #fff;
   position: absolute;
   bottom: 0;
@@ -286,17 +294,46 @@ code {
   opacity: 1;
 }
 
-.row {
-  display: flex;
-  gap: 15px;
-}
+/* Small Screen */
+@media screen and (max-width: 500px) {
+  .footer {
+    position: relative;
+  }
 
-.row img {
-  width: 20px;
-}
+  body,
+  html,
+  .App {
+    height: 100%;
+  }
 
-.textHover:hover {
-  cursor: pointer;
-  color: #aaa;
-}
+  .searchContainer img {
+    width: 25px;
+    height: 25px;
+  }
 
+  .mainContainer,
+  .searchContainer {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .currentWeather {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .basicInfo .iconBox .icon {
+    width: 90px;
+  }
+
+  .basicInfo .temp {
+    font-size: 82px;
+  }
+
+  .extraInfo {
+    gap: 10px;
+    align-items: center;
+  }
+
+}
