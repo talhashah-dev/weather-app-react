@@ -124,17 +124,14 @@ code {
 
 .searchInp {
   text-transform: capitalize;
-  width: 85%;
+  width: 100%;
   border: none;
   font-size: 18px;
   outline: none;
   background-color: transparent;
   color: lightgray;
+  margin-left: 5px;
 }
-
-/* .searchInp:focus::-webkit-input-placeholder {
-  color: transparent;
-} */
 
 .searchContainer img {
   width: 2rem;
@@ -339,7 +336,7 @@ code {
   .footer {
     position: absolute;
     bottom: 0;
-    
+
   }
 
 }
