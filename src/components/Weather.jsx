@@ -258,7 +258,7 @@ function Weather() {
                   <span className="row">
                     <img src={Pressure_Icon} alt="Pressure Icon" />
                     <p className="pressure">Pressure</p>
-                    <p>{`${weatherData.main.pressure}%`}</p>
+                    <p>{`${weatherData.main.pressure}hPa`}</p>
                   </span>
                 </div>
               </>
