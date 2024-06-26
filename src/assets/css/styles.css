@@ -303,7 +303,7 @@ code {
   body,
   html,
   .App {
-    height: 100%;
+    height: 100vh;
   }
 
   .searchContainer img {
@@ -334,6 +334,12 @@ code {
   .extraInfo {
     gap: 10px;
     align-items: center;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    
   }
 
 }
